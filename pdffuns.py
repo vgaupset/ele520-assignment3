@@ -38,8 +38,8 @@ def knn2D(X, k, x1, x2):
     for i in range(n):
         for j in range(d):
             D = []
-            for k in range(X.shape[1]):
-                D.append(np.linalg.norm(np.array([X[0][k] - X1[i][j], X[1][k] - X2[i,j] ])))
+            for ind in range(X.shape[1]):
+                D.append(np.linalg.norm(np.array([X[0][ind] - X1[i][j], X[1][ind] - X2[i,j] ])))
             D.sort()
             dk = D[k-1]
             p[i,j]= k/(np.pi*pow(dk,2)*X.shape[1])
