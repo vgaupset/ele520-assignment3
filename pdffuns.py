@@ -31,12 +31,16 @@ def norm2D(my,Sgm,x1,x2):
     return p,X1,X2
     
 
-def knn2D(pw, k, my, X):
-    D = []
-    n = X.shape[1]
+def knn2D(X, k, x1, x2):
+    X1,X2 = np.meshgrid(x1,x2)
+    [n, d]=np.shape(X1)
+    p = np.zeros(np.shape(X1))
     for i in range(n):
-        D.append(np.linalg.norm(np.array([X[0][i] - my[0], X[1][i] - my[1] ])))
-    D.sort()
-    dk = D[k-1]
-    Pk = k*pw/(np.pi*pow(dk,2)*n)
-    return Pk
+        for j in range(d):
+            D = []
+            for k in range(X.shape[1]):
+                D.append(np.linalg.norm(np.array([X[0][k] - X1[i][j], X[1][k] - X2[i,j] ])))
+            D.sort()
+            dk = D[k-1]
+            p[i,j]= k/(np.pi*pow(dk,2)*X.shape[1])
+    return p,X1,X2
